@@ -5,9 +5,7 @@ import AppRoutes from "./src/routes/app.routes";
 export default function App() {
   return (
     <NavigationContainer>
-      <AppRoutes/>
+      <AppRoutes />
     </NavigationContainer>
   );
 }
-
-

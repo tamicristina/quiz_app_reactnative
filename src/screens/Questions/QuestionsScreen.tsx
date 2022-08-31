@@ -1,15 +1,18 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native"
+import { View, Text, StyleSheet, Button } from "react-native";
 
-export default function QuestionsScreen ({navigation}: {navigation:any}){
-  return(
+export function QuestionsScreen() {
+  const navigation = useNavigation<any>();
+  return (
     <View style={styles.container}>
       <Text>Questions Screen</Text>
-      <Button title="Clica aqui"
-    onPress={() => navigation.navigate('result')}
-    />
+      <Button
+        title="Clica aqui"
+        onPress={() => navigation.navigate("result")}
+      />
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -20,4 +23,3 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
- 

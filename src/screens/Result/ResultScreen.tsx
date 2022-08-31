@@ -1,13 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native"
+import { View, Text, StyleSheet, Button } from "react-native";
 
-export default function ResultScreen ({navigation}: {navigation:any}){
-  return(
+export function ResultScreen({ navigation }: { navigation: any }) {
+  return (
     <View style={styles.container}>
       <Text>Result Screen</Text>
-    
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -18,4 +17,3 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
- 
