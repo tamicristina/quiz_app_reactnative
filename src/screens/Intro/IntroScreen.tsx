@@ -1,28 +1,14 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { View, Text, Button } from "react-native"
 import { StyleSheet } from "react-native";
+import { GenericScreenTemplate } from "../../templates/GenericScreen/GenericScreen.template";
 
-
-
-export function IntroScreen (){
-  const navigation = useNavigation<any>()
-  return(
-    <View style={styles.container}>
-      <Text>Intro Screen </Text>
-    <Button title="Clica aqui"
-    onPress={() => navigation.navigate('questions')}
+export function IntroScreen() {
+  const navigation = useNavigation<any>();
+  return (
+    <GenericScreenTemplate
+      onPress={navigation.navigate("questions")}
+      title={"You're ready to start"}
     />
-    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
-
