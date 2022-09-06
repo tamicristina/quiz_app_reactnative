@@ -9,6 +9,7 @@ function AppRoutes() {
         headerTransparent: true,
         title: "",
       }}
+      initialRouteName="intro"
     >
       <Screen name="intro" component={IntroScreen} />
       <Screen name="questions" component={QuestionsScreen} />
