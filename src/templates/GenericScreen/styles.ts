@@ -5,11 +5,17 @@ export const Container = styled.View`
   background-color:${({ theme }) => theme.colors.secondary} ;
   align-items: center;
   justify-content: center;
-  
-`;
+ 
+`
 
 export const Title = styled.Text`
-  color: '#373737';
+  color: ${({ theme }) => theme.colors.primary};
   font-size:32px
+
+`
+export const TextDescription = styled.Text`
+  color: ${({ theme }) => theme.colors.primary_ligth};
+  font-size:20px;
+  margin-top: 15px 
 
 `

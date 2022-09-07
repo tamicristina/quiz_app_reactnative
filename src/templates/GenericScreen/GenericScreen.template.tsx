@@ -1,24 +1,25 @@
 import React from "react";
-import { View, Text, Button } from "react-native";
-import { Container, Title } from "./styles";
+import { Button } from "../../components/Button";
+import { Container, Title, TextDescription } from "./styles";
 
 interface Props {
   icon?: JSX.Element;
-  title?: string;
-  subTitle?: string;
-  buttonLabel?: string;
-  onPress?: () => void;
+  title: string;
+  description: string;
+  buttonLabel: string;
+  onPress: () => void;
 }
 export function GenericScreenTemplate({
-  icon,
   title,
-  subTitle,
+  description,
   buttonLabel,
   onPress,
 }: Props) {
   return (
     <Container>
       <Title> {title}</Title>
+      <TextDescription>{description}</TextDescription>
+      <Button label={buttonLabel} onPress={onPress} />
     </Container>
   );
 }
