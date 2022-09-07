@@ -1,14 +1,18 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { StyleSheet } from "react-native";
 import { GenericScreenTemplate } from "../../templates/GenericScreen/GenericScreen.template";
 
 export function IntroScreen() {
   const navigation = useNavigation<any>();
+  function nextScreen() {
+    navigation.navigate("questions");
+  }
   return (
     <GenericScreenTemplate
-      onPress={navigation.navigate("questions")}
-      title={"You're ready to start"}
+      title={"You're ready to start?"}
+      description={"It gonna take just a few minutes"}
+      buttonLabel={"Start"}
+      onPress={nextScreen}
     />
   );
 }
