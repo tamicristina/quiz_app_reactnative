@@ -1,10 +1,20 @@
-import { useNavigation, useRoute } from "@react-navigation/native";
+import {
+  ParamListBase,
+  RouteProp,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 
 import { View, Text, StyleSheet, Button } from "react-native";
+import { IQuestion } from "../../interfaces";
+
+interface Params extends ParamListBase {
+  [key: string]: { questions: IQuestion[] };
+}
 
 export function QuestionsScreen() {
   const navigation = useNavigation<any>();
-  const route = useRoute<any>();
+  const route = useRoute<RouteProp<Params, string>>();
 
   const { questions } = route.params;
 
