@@ -1,9 +1,13 @@
-import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
+
 import { View, Text, StyleSheet, Button } from "react-native";
 
 export function QuestionsScreen() {
   const navigation = useNavigation<any>();
+  const route = useRoute<any>();
+
+  const { questions } = route.params;
+
   return (
     <View style={styles.container}>
       <Text>Questions Screen</Text>
