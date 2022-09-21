@@ -8,18 +8,20 @@ interface Props {
   description: string;
   buttonLabel: string;
   onPress: () => void;
+  isLoading?: boolean;
 }
 export function GenericScreenTemplate({
   title,
   description,
   buttonLabel,
   onPress,
+  isLoading,
 }: Props) {
   return (
     <Container>
       <Title> {title}</Title>
       <TextDescription>{description}</TextDescription>
-      <Button label={buttonLabel} onPress={onPress} />
+      <Button label={buttonLabel} onPress={onPress} isLoading={isLoading} />
     </Container>
   );
 }
