@@ -1,8 +1,9 @@
 import styled from 'styled-components/native'
 
 
+
 export const ButtonContainer = styled.View`
-  width:250px;
+  width:369px;
   height: 50px;
   background-color: ${({ theme }) => theme.colors.purple_ligth};
   justify-content: center;
