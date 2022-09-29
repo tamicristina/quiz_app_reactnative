@@ -5,6 +5,7 @@ import { useQuestionsData } from "../../services/getQuestions";
 
 export function IntroScreen() {
   const { nextScreen, isLoading } = useQuestionsData();
+  const navigation = useNavigation<any>();
 
   return (
     <GenericScreenTemplate

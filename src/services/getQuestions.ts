@@ -1,11 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Alert } from "react-native";
 
 export const useQuestionsData = () => {
-
-  const [questions, setQuestions] = useState([]);
   const [isLoading, setIsLoading] = useState(false)
   const navigation = useNavigation<any>()
   const baseURL =
@@ -15,12 +13,11 @@ export const useQuestionsData = () => {
     try {
       setIsLoading(true)
       const response = await axios.get(baseURL);
-      const data = await response.data;
-      setQuestions(data);
+      const questions = response.data.results
+
+
       setIsLoading(false)
-
-
-
+      navigation.navigate("questions", { questions })
 
     } catch (err) {
 
@@ -28,17 +25,14 @@ export const useQuestionsData = () => {
         "Erro",
         "Ocorreu um erro ao carregar as informações"
       );
-      return setIsLoading(false)
+      setIsLoading(false)
 
     }
 
-    navigation.navigate("questions", { questions });
+
   }
 
-
-
   return {
-    questions,
     isLoading,
     nextScreen
   }
