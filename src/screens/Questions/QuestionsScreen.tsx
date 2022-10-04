@@ -13,26 +13,39 @@ import { IQuestion } from "../../interfaces";
 interface Params extends ParamListBase {
   [key: string]: { questions: IQuestion[] };
 }
-
 export function QuestionsScreen() {
   const navigation = useNavigation<any>();
   const route = useRoute<RouteProp<Params, string>>();
   const { questions } = route.params;
+  const [nextQuestion, setNextQuestion] = useState(0);
 
   const allAnswers = [];
-  const incorrectAnswers = questions[0].incorrect_answers;
-  const correctAnswer = questions[0].correct_answer;
+  const incorrectAnswers = questions[nextQuestion].incorrect_answers;
+
+  const correctAnswer = questions[nextQuestion].correct_answer;
   allAnswers.push(...incorrectAnswers, correctAnswer);
   allAnswers.sort();
 
-  const teste = allAnswers.forEach((answer) => {
-    return <ButtonAnswer text={} onPress={() => {}} />;
-  });
+  function goToTheNextQuestion() {
+    nextQuestion >= 9
+      ? navigation.navigate("result")
+      : setNextQuestion(nextQuestion + 1);
+  }
 
-  console.log(allAnswers);
-  console.log(questions);
-
-  return <View style={styles.container}></View>;
+  return (
+    <View style={styles.container}>
+      <Text>{questions[nextQuestion].question}</Text>
+      {allAnswers.map((answer) => {
+        return (
+          <ButtonAnswer
+            text={answer}
+            onPress={goToTheNextQuestion}
+            key={answer}
+          />
+        );
+      })}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
