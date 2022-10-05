@@ -21,8 +21,8 @@ export function QuestionsScreen() {
 
   const allAnswers = [];
   const incorrectAnswers = questions[nextQuestion].incorrect_answers;
-
   const correctAnswer = questions[nextQuestion].correct_answer;
+
   allAnswers.push(...incorrectAnswers, correctAnswer);
   allAnswers.sort();
 
@@ -32,13 +32,18 @@ export function QuestionsScreen() {
       : setNextQuestion(nextQuestion + 1);
   }
 
+  const questionsFormated = questions[nextQuestion].question
+    .replace(/[%20-]/g, " ")
+    .replace("3F", "?");
+
   return (
     <View style={styles.container}>
-      <Text>{questions[nextQuestion].question}</Text>
+      <Text>{questionsFormated}</Text>
       {allAnswers.map((answer) => {
+        const answerFormated = answer.replace(/[%20-]/g, " ");
         return (
           <ButtonAnswer
-            text={answer}
+            text={answerFormated}
             onPress={goToTheNextQuestion}
             key={answer}
           />

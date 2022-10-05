@@ -7,7 +7,7 @@ export const useQuestionsData = () => {
   const [isLoading, setIsLoading] = useState(false)
   const navigation = useNavigation<any>()
   const baseURL =
-    "https://opentdb.com/api.php?amount=10&category=32&type=multiple";
+    "https://opentdb.com/api.php?amount=10&category=31&type=multiple&encode=url3986";
 
   async function nextScreen() {
     try {
