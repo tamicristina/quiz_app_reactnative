@@ -6,9 +6,10 @@ import {
 } from "@react-navigation/native";
 import { useState } from "react";
 
-import { View, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { ButtonAnswer } from "../../components/ButtonAnswer";
 import { IQuestion } from "../../interfaces";
+import { QuestionContainer, QuestionText } from "./style";
 
 interface Params extends ParamListBase {
   [key: string]: { questions: IQuestion[] };
@@ -32,15 +33,17 @@ export function QuestionsScreen() {
       : setNextQuestion(nextQuestion + 1);
   }
 
-  const questionsFormated = questions[nextQuestion].question
-    .replace(/[%20-]/g, " ")
-    .replace("3F", "?");
+  const questionsFormated = decodeURIComponent(
+    questions[nextQuestion].question
+  );
 
   return (
     <View style={styles.container}>
-      <Text>{questionsFormated}</Text>
+      <QuestionContainer>
+        <QuestionText>{questionsFormated}</QuestionText>
+      </QuestionContainer>
       {allAnswers.map((answer) => {
-        const answerFormated = answer.replace(/[%20-]/g, " ");
+        const answerFormated = decodeURIComponent(answer);
         return (
           <ButtonAnswer
             text={answerFormated}
@@ -57,6 +60,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    // backgroundColor: "#e70a0a",
     alignItems: "center",
     justifyContent: "center",
   },

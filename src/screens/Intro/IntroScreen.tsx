@@ -1,11 +1,9 @@
-import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { GenericScreenTemplate } from "../../templates/GenericScreen/GenericScreen.template";
 import { useQuestionsData } from "../../services/getQuestions";
 
 export function IntroScreen() {
   const { nextScreen, isLoading } = useQuestionsData();
-  const navigation = useNavigation<any>();
 
   return (
     <GenericScreenTemplate
