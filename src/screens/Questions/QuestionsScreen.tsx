@@ -6,10 +6,9 @@ import {
 } from "@react-navigation/native";
 import { useState } from "react";
 
-import { View, Text, StyleSheet } from "react-native";
 import { ButtonAnswer } from "../../components/ButtonAnswer";
 import { IQuestion } from "../../interfaces";
-import { QuestionContainer, QuestionText } from "./style";
+import { Container, QuestionContainer, QuestionText } from "./style";
 
 interface Params extends ParamListBase {
   [key: string]: { questions: IQuestion[] };
@@ -38,7 +37,7 @@ export function QuestionsScreen() {
   );
 
   return (
-    <View style={styles.container}>
+    <Container>
       <QuestionContainer>
         <QuestionText>{questionsFormated}</QuestionText>
       </QuestionContainer>
@@ -52,16 +51,6 @@ export function QuestionsScreen() {
           />
         );
       })}
-    </View>
+    </Container>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    // backgroundColor: "#e70a0a",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

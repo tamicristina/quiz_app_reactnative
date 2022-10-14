@@ -8,10 +8,8 @@ interface Props {
 
 export function ButtonAnswer({ text, onPress }: Props) {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <ButtonContainer>
-        <ButtonLabel>{text}</ButtonLabel>
-      </ButtonContainer>
-    </TouchableOpacity>
+    <ButtonContainer onPress={onPress}>
+      <ButtonLabel>{text}</ButtonLabel>
+    </ButtonContainer>
   );
 }
