@@ -27,7 +27,7 @@ export function QuestionsScreen() {
   allAnswers.sort();
 
   function goToTheNextQuestion() {
-    nextQuestion >= 9
+    nextQuestion >= questions.length - 1
       ? navigation.navigate("result")
       : setNextQuestion(nextQuestion + 1);
   }
