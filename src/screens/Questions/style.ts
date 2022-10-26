@@ -4,6 +4,7 @@ export const Container = styled.View`
     flex: 1;
     align-items: center;
     justify-content: center;
+    margin: 0 44px;
    
 `
 
@@ -12,5 +13,5 @@ font-size:20px;
 `
 
 export const QuestionContainer = styled.View`
-/* margin:0 50px */
+width:100%;
 `
