@@ -1,5 +1,5 @@
 import React from "react";
-import { BarContainer, ProgressBarStyle } from "./style";
+import { BarContainer, Barfilling } from "./style";
 
 interface Props {
   progressClick?: number;
@@ -8,7 +8,7 @@ interface Props {
 export function ProgressBar({ progressClick }: Props) {
   return (
     <BarContainer>
-      <ProgressBarStyle progress={progressClick}></ProgressBarStyle>
+      <Barfilling progress={progressClick}></Barfilling>
     </BarContainer>
   );
 }

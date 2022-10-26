@@ -19,7 +19,7 @@ export function QuestionsScreen() {
   const route = useRoute<RouteProp<Params, string>>();
   const { questions } = route.params;
   const [nextQuestion, setNextQuestion] = useState(0);
-  const [progressBar, setProgressBar] = useState(0);
+  const [FillingprogressBar, setFillingProgressBar] = useState(0);
 
   const allAnswers = [];
   const incorrectAnswers = questions[nextQuestion].incorrect_answers;
@@ -28,10 +28,14 @@ export function QuestionsScreen() {
   allAnswers.push(...incorrectAnswers, correctAnswer);
   allAnswers.sort();
 
+  const progressBarCalculation = ((nextQuestion + 1) / questions.length) * 100;
+
   function goToTheNextQuestion() {
     nextQuestion >= questions.length - 1
       ? navigation.navigate("result")
       : setNextQuestion(nextQuestion + 1);
+
+    setFillingProgressBar(progressBarCalculation);
   }
 
   const questionsFormated = decodeURIComponent(
@@ -40,8 +44,8 @@ export function QuestionsScreen() {
 
   return (
     <>
-      <ProgressBar progressClick={progressBar} />
       <Container>
+        <ProgressBar progressClick={FillingprogressBar} />
         <QuestionContainer>
           <QuestionText>{questionsFormated}</QuestionText>
         </QuestionContainer>
