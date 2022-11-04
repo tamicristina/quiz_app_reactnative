@@ -10,8 +10,7 @@ export const BarContainer = styled.View<ProgressBarProps>`
   border-left-width:${props => props.progress}%;
   border-left-color:${({ theme }) => theme.colors.purple_ligth};
   height:20px;
-  border-radius:15px
-
+  border-radius:15px;
 `
 
 export const Barfilling = styled.View<ProgressBarProps>`

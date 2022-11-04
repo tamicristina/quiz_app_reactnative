@@ -4,7 +4,7 @@ import {
   useNavigation,
   useRoute,
 } from "@react-navigation/native";
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 
 import { ButtonAnswer } from "../../components/ButtonAnswer";
 import { ProgressBar } from "../../components/ProgressBar";
@@ -28,7 +28,7 @@ export function QuestionsScreen() {
   allAnswers.push(...incorrectAnswers, correctAnswer);
   allAnswers.sort();
 
-  const progressBarCalculation = ((nextQuestion + 1) / questions.length) * 100;
+  const progressBarCalculation = ((nextQuestion + 2) / questions.length) * 100;
 
   function goToTheNextQuestion() {
     nextQuestion >= questions.length - 1
@@ -48,17 +48,17 @@ export function QuestionsScreen() {
         <ProgressBar progressClick={FillingprogressBar} />
         <QuestionContainer>
           <QuestionText>{questionsFormated}</QuestionText>
+          {allAnswers.map((answer) => {
+            const answerFormated = decodeURIComponent(answer);
+            return (
+              <ButtonAnswer
+                text={answerFormated}
+                onPress={goToTheNextQuestion}
+                key={answer}
+              />
+            );
+          })}
         </QuestionContainer>
-        {allAnswers.map((answer) => {
-          const answerFormated = decodeURIComponent(answer);
-          return (
-            <ButtonAnswer
-              text={answerFormated}
-              onPress={goToTheNextQuestion}
-              key={answer}
-            />
-          );
-        })}
       </Container>
     </>
   );
