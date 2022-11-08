@@ -4,12 +4,17 @@ import {
   useNavigation,
   useRoute,
 } from "@react-navigation/native";
-import { useState } from "react";
+import React, { useState } from "react";
 
 import { ButtonAnswer } from "../../components/ButtonAnswer";
 import { ProgressBar } from "../../components/ProgressBar";
 import { IQuestion } from "../../interfaces";
-import { Container, QuestionContainer, QuestionText } from "./style";
+import {
+  Container,
+  ProgressBarContainer,
+  QuestionContainer,
+  QuestionText,
+} from "./style";
 
 interface Params extends ParamListBase {
   [key: string]: { questions: IQuestion[] };
@@ -44,8 +49,10 @@ export function QuestionsScreen() {
 
   return (
     <>
-      <Container>
+      <ProgressBarContainer>
         <ProgressBar progressClick={FillingprogressBar} />
+      </ProgressBarContainer>
+      <Container>
         <QuestionContainer>
           <QuestionText>{questionsFormated}</QuestionText>
           {allAnswers.map((answer) => {
