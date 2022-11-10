@@ -15,6 +15,8 @@ import {
   QuestionContainer,
   QuestionText,
 } from "./style";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Alert } from "react-native";
 
 interface Params extends ParamListBase {
   [key: string]: { questions: IQuestion[] };
@@ -25,6 +27,7 @@ export function QuestionsScreen() {
   const { questions } = route.params;
   const [nextQuestion, setNextQuestion] = useState(0);
   const [FillingprogressBar, setFillingProgressBar] = useState(0);
+  // const [questionSelected, setQuestionSelected] = useState<string[]>([]);
 
   const allAnswers = [];
   const incorrectAnswers = questions[nextQuestion].incorrect_answers;
@@ -33,13 +36,27 @@ export function QuestionsScreen() {
   allAnswers.push(...incorrectAnswers, correctAnswer);
   allAnswers.sort();
 
-  const progressBarCalculation = ((nextQuestion + 2) / questions.length) * 100;
-
-  function goToTheNextQuestion() {
+  function goToTheNextQuestion(selectedQuestion: string) {
     nextQuestion >= questions.length - 1
       ? navigation.navigate("result")
       : setNextQuestion(nextQuestion + 1);
 
+    // setQuestionSelected((prevState) => [...prevState, selectedQuestion]);
+    storeData(selectedQuestion);
+    fillProgressBar();
+  }
+
+  async function storeData(questionValue: string) {
+    try {
+      await AsyncStorage.setItem("@storage_Key", questionValue);
+    } catch (e) {
+      Alert.alert("Erro", "Ocorreu um erro ao carregar as informações");
+    }
+  }
+
+  function fillProgressBar() {
+    const progressBarCalculation =
+      ((nextQuestion + 2) / questions.length) * 100;
     setFillingProgressBar(progressBarCalculation);
   }
 
@@ -60,7 +77,7 @@ export function QuestionsScreen() {
             return (
               <ButtonAnswer
                 text={answerFormated}
-                onPress={goToTheNextQuestion}
+                onPress={() => goToTheNextQuestion(answerFormated)}
                 key={answer}
               />
             );
