@@ -8,7 +8,7 @@ interface Props {
 export function ProgressBar({ progressClick }: Props) {
   return (
     <BarContainer>
-      <Barfilling progress={progressClick}></Barfilling>
+      <Barfilling progress={progressClick} />
     </BarContainer>
   );
 }
