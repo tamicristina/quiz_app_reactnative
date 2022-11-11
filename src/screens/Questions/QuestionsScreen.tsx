@@ -25,6 +25,17 @@ export function QuestionsScreen() {
     goToTheNextQuestion,
   } = useQuestionsScreen(questions);
 
+  const ButtonAnswerComponent = allAnswers.map((answer) => {
+    const answerFormated = decodeURIComponent(answer);
+    return (
+      <ButtonAnswer
+        text={answerFormated}
+        onPress={() => goToTheNextQuestion(answerFormated)}
+        key={answer}
+      />
+    );
+  });
+
   return (
     <>
       <ProgressBarContainer>
@@ -33,16 +44,7 @@ export function QuestionsScreen() {
       <Container>
         <QuestionContainer>
           <QuestionText>{questionsFormated}</QuestionText>
-          {allAnswers.map((answer) => {
-            const answerFormated = decodeURIComponent(answer);
-            return (
-              <ButtonAnswer
-                text={answerFormated}
-                onPress={() => goToTheNextQuestion(answerFormated)}
-                key={answer}
-              />
-            );
-          })}
+          {ButtonAnswerComponent}
         </QuestionContainer>
       </Container>
     </>
