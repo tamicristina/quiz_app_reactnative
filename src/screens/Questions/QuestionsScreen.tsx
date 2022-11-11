@@ -8,8 +8,6 @@ import {
   QuestionContainer,
   QuestionText,
 } from "./style";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Alert } from "react-native";
 import { useQuestionsScreen } from "./hook";
 
 interface Params extends ParamListBase {
