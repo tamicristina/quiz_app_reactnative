@@ -25,14 +25,6 @@ export function QuestionsScreen() {
     goToTheNextQuestion,
   } = useQuestionsScreen(questions);
 
-  async function storeData(questionValue: string) {
-    try {
-      await AsyncStorage.setItem("@storage_Key", questionValue);
-    } catch (e) {
-      Alert.alert("Erro", "Ocorreu um erro ao carregar as informações");
-    }
-  }
-
   return (
     <>
       <ProgressBarContainer>
