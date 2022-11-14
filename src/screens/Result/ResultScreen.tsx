@@ -1,27 +1,43 @@
 import { RouteProp, useRoute } from "@react-navigation/native";
-import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, Button, Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function ResultScreen({ navigation }: { navigation: any }) {
   const route = useRoute<any>();
   const { selectedQuestion } = route.params;
+  const [allAnswersArray, setAllAnswersArray] = useState<string[]>([]);
+  const [selectedAnswer, setselectedAnswer] = useState("");
+
+  useEffect(() => {
+    getData();
+    getSelectedAnswer();
+  }, []);
 
   const getData = async () => {
     try {
-      const jsonValue = await AsyncStorage.getItem("allAnswersSelected");
-      jsonValue != null ? JSON.parse(jsonValue) : null;
-      console.log(jsonValue);
+      const value = await AsyncStorage.getItem("allAnswersSelected");
+      if (value != null) {
+        JSON.parse(value);
+        setAllAnswersArray((prevState) => [...prevState, value]);
+      }
     } catch (e) {
-      // error reading value
+      Alert.alert("Erro", "Ocorreu um erro ao carregar as informações");
     }
   };
 
-  getData();
+  const getSelectedAnswer = async () => {
+    try {
+      const value = await AsyncStorage.getItem("clickedAnswer");
+      if (value != null) {
+        setselectedAnswer(value);
+      }
+    } catch (e) {
+      Alert.alert("Erro", "Ocorreu um erro ao carregar as informações");
+    }
+  };
 
-  // function createItem(value: any) {
-  //   return <Text>{value}</Text>;
-  // }
+  console.log(`Todas questoes: ${allAnswersArray} `);
 
   return <View style={styles.container}>{}</View>;
 }
