@@ -1,14 +1,12 @@
 import { RouteProp, useRoute } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Button, Alert } from "react-native";
+import { View, StyleSheet, Button, Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function ResultScreen({ navigation }: { navigation: any }) {
   const route = useRoute<any>();
-  const { selectedQuestion } = route.params;
   const [allAnswersArray, setAllAnswersArray] = useState<string[]>([]);
   const [selectedAnswer, setselectedAnswer] = useState("");
-
   useEffect(() => {
     getData();
     getSelectedAnswer();
@@ -36,8 +34,6 @@ export function ResultScreen({ navigation }: { navigation: any }) {
       Alert.alert("Erro", "Ocorreu um erro ao carregar as informações");
     }
   };
-
-  console.log(`Todas questoes: ${allAnswersArray} `);
 
   return <View style={styles.container}>{}</View>;
 }

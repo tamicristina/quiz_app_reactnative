@@ -1,4 +1,4 @@
-import { ParamListBase, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Alert } from "react-native";
@@ -15,9 +15,9 @@ export const useQuestionsScreen = (questions: any) => {
     const incorrectAnswers = questions[nextQuestion].incorrect_answers;
     const correctAnswer = questions[nextQuestion].correct_answer;
 
-
     allAnswers.push(...incorrectAnswers, correctAnswer);
     allAnswers.sort();
+
     return {
       allAnswers,
       correctAnswer
@@ -29,10 +29,6 @@ export const useQuestionsScreen = (questions: any) => {
   const questionsFormated = decodeURIComponent(
     questions[nextQuestion].question
   );
-  // const correctAnswerFormated = decodeURIComponent(correctAnswer)
-  // console.log("Resposta Certa" + " " + correctAnswerFormated)
-
-
 
 
   async function goToTheNextQuestion(clickedAnswer: string) {
@@ -45,11 +41,11 @@ export const useQuestionsScreen = (questions: any) => {
     nextQuestion >= questions.length - 1
       ? navigation.navigate("result", { clickedAnswer })
       : setNextQuestion(nextQuestion + 1);
+
     joinChosenAnswers(clickedAnswer)
 
     fillProgressBar();
 
-    return { clickedAnswer }
   }
 
 
@@ -58,6 +54,7 @@ export const useQuestionsScreen = (questions: any) => {
     setAllAnswersSelected((prevState) => [...prevState, selectedAnswer]);
 
   }
+
 
   async function storeChosenAnswersData() {
     try {
@@ -96,6 +93,7 @@ export const useQuestionsScreen = (questions: any) => {
   return {
     allAnswers,
     questionsFormated,
+    correctAnswer,
     FillingprogressBar,
     goToTheNextQuestion
   }

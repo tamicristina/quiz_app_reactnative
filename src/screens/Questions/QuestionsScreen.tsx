@@ -16,6 +16,7 @@ interface Params extends ParamListBase {
 export function QuestionsScreen() {
   const route = useRoute<RouteProp<Params, string>>();
   const { questions } = route.params;
+
   const {
     allAnswers,
     questionsFormated,
