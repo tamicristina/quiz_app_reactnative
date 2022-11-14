@@ -10,7 +10,7 @@ export const useQuestionsScreen = (questions: any) => {
   const [FillingprogressBar, setFillingProgressBar] = useState(0);
   const [allAnswersSelected, setAllAnswersSelected] = useState<string[]>([])
 
-  function joinQuestions() {
+  function joinAllAnswers() {
     const allAnswers = [];
     const incorrectAnswers = questions[nextQuestion].incorrect_answers;
     const correctAnswer = questions[nextQuestion].correct_answer;
@@ -23,7 +23,7 @@ export const useQuestionsScreen = (questions: any) => {
       correctAnswer
     }
   }
-  const { allAnswers, correctAnswer } = joinQuestions()
+  const { allAnswers, correctAnswer } = joinAllAnswers()
 
 
   const questionsFormated = decodeURIComponent(
@@ -61,14 +61,16 @@ export const useQuestionsScreen = (questions: any) => {
 
   async function storeChosenAnswersData() {
     try {
-      const jsonValue = JSON.stringify(allAnswersSelected)
-      await AsyncStorage.setItem('allAnswersSelected', jsonValue);
+
+      await AsyncStorage.setItem('allAnswersSelected', JSON.stringify(allAnswersSelected));
 
 
     } catch (e) {
       Alert.alert("Erro", "Ocorreu um erro ao carregar as informações");
     }
   }
+
+  storeChosenAnswersData()
 
 
   function fillProgressBar() {
