@@ -8,7 +8,7 @@ export const useQuestionsScreen = (questions: any) => {
 
   const [nextQuestion, setNextQuestion] = useState(0);
   const [FillingprogressBar, setFillingProgressBar] = useState(0);
-
+  const [allAnswersSelected, setAllAnswersSelected] = useState<string[]>([])
 
   function joinQuestions() {
     const allAnswers = [];
@@ -33,20 +33,43 @@ export const useQuestionsScreen = (questions: any) => {
   // console.log("Resposta Certa" + " " + correctAnswerFormated)
 
 
-  async function goToTheNextQuestion(selectedQuestion: string) {
+
+
+  async function goToTheNextQuestion(clickedAnswer: string) {
     try {
-      await AsyncStorage.setItem("@storage_Key", selectedQuestion);
+      await AsyncStorage.setItem("clickedAnswer", clickedAnswer);
 
     } catch (e) {
       Alert.alert("Erro", "Ocorreu um erro ao carregar as informações");
     }
-
     nextQuestion >= questions.length - 1
-      ? navigation.navigate("result", { selectedQuestion })
+      ? navigation.navigate("result", { clickedAnswer })
       : setNextQuestion(nextQuestion + 1);
+    joinChosenAnswers(clickedAnswer)
 
     fillProgressBar();
+
+    return { clickedAnswer }
   }
+
+
+  function joinChosenAnswers(selectedAnswer: string) {
+
+    setAllAnswersSelected((prevState) => [...prevState, selectedAnswer]);
+
+  }
+
+  async function storeChosenAnswersData() {
+    try {
+      const jsonValue = JSON.stringify(allAnswersSelected)
+      await AsyncStorage.setItem('allAnswersSelected', jsonValue);
+
+
+    } catch (e) {
+      Alert.alert("Erro", "Ocorreu um erro ao carregar as informações");
+    }
+  }
+
 
   function fillProgressBar() {
     const progressBarCalculation =
