@@ -2,13 +2,17 @@ import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Alert } from "react-native";
+import { IQuestion } from "../../interfaces";
+import { useResultScreen } from "../Result/hook";
 
-export const useQuestionsScreen = (questions: any) => {
+export const useQuestionsScreen = (questions: IQuestion[]) => {
   const navigation = useNavigation<any>();
 
   const [nextQuestion, setNextQuestion] = useState(0);
   const [FillingprogressBar, setFillingProgressBar] = useState(0);
-  const [allAnswersSelected, setAllAnswersSelected] = useState<string[]>([])
+  const [chosenAnswers, setChosenAnswers] = useState<string[]>([])
+  const [numberOfCorrectAnswers, setNumberOfCorrectAnswers] = useState(0)
+
 
   function joinAllAnswers() {
     const allAnswers = [];
@@ -30,45 +34,16 @@ export const useQuestionsScreen = (questions: any) => {
     questions[nextQuestion].question
   );
 
-
   async function goToTheNextQuestion(clickedAnswer: string) {
-    try {
-      await AsyncStorage.setItem("clickedAnswer", clickedAnswer);
 
-    } catch (e) {
-      Alert.alert("Erro", "Ocorreu um erro ao carregar as informações");
-    }
     nextQuestion >= questions.length - 1
-      ? navigation.navigate("result", { clickedAnswer })
+      ? navigation.navigate("result", { questions })
       : setNextQuestion(nextQuestion + 1);
 
-    joinChosenAnswers(clickedAnswer)
-
     fillProgressBar();
-
+    countNumberOfCorrectAnswers(clickedAnswer)
+    getChosenAnswers(clickedAnswer)
   }
-
-
-  function joinChosenAnswers(selectedAnswer: string) {
-
-    setAllAnswersSelected((prevState) => [...prevState, selectedAnswer]);
-
-  }
-
-
-  async function storeChosenAnswersData() {
-    try {
-
-      await AsyncStorage.setItem('allAnswersSelected', JSON.stringify(allAnswersSelected));
-
-
-    } catch (e) {
-      Alert.alert("Erro", "Ocorreu um erro ao carregar as informações");
-    }
-  }
-
-  storeChosenAnswersData()
-
 
   function fillProgressBar() {
     const progressBarCalculation =
@@ -77,15 +52,41 @@ export const useQuestionsScreen = (questions: any) => {
   }
 
 
-  // const [resultCount, setresultCount] = useState(0)
+  function countNumberOfCorrectAnswers(answer: string) {
 
-  // function countCorrectQuestions(value: string) {
-  //   let counter = 0
-  //   if (correctAnswer.includes(value)) {
-  //     setresultCount(resultCount + 1)
+    let allCorrectAnswer: any = []
+    questions.filter((question) => {
+      let answer = decodeURIComponent(question.correct_answer)
+      allCorrectAnswer.push(answer)
+      console.log(answer)
+    })
 
-  //   }
-  // }
+    if (allCorrectAnswer.includes(answer)) {
+      setNumberOfCorrectAnswers(numberOfCorrectAnswers + 1)
+    }
+  }
+
+  async function storeNumberOfCorrectAnswers() {
+    try {
+      await AsyncStorage.setItem('resultCount', JSON.stringify(numberOfCorrectAnswers));
+    } catch (e) {
+      Alert.alert("Erro", "Ocorreu um erro ao carregar as informações");
+    }
+  }
+
+  storeNumberOfCorrectAnswers()
+
+  function getChosenAnswers(selectedAnswer: string) {
+    setChosenAnswers((prevState) => [...prevState, selectedAnswer]);
+  }
+
+  async function storeChosenAnswers() {
+    try {
+      await AsyncStorage.setItem('chosenAnswers', JSON.stringify(numberOfCorrectAnswers));
+    } catch (e) {
+      Alert.alert("Erro", "Ocorreu um erro ao carregar as informações");
+    }
+  }
 
 
 
