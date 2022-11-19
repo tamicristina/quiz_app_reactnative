@@ -3,7 +3,7 @@ import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Alert } from "react-native";
 import { IQuestion } from "../../interfaces";
-import { useResultScreen } from "../Result/hook";
+import { UseQuestionsAsyncStorage } from "../../services/UseQuestionsAsyncStorage";
 
 export const useQuestionsScreen = (questions: IQuestion[]) => {
   const navigation = useNavigation<any>();
@@ -12,6 +12,9 @@ export const useQuestionsScreen = (questions: IQuestion[]) => {
   const [FillingprogressBar, setFillingProgressBar] = useState(0);
   const [chosenAnswers, setChosenAnswers] = useState<string[]>([])
   const [numberOfCorrectAnswers, setNumberOfCorrectAnswers] = useState(0)
+
+  const { storeNumberOfCorrectAnswers, storeChosenAnswers } = UseQuestionsAsyncStorage()
+
 
 
   function joinAllAnswers() {
@@ -22,6 +25,8 @@ export const useQuestionsScreen = (questions: IQuestion[]) => {
     allAnswers.push(...incorrectAnswers, correctAnswer);
     allAnswers.sort();
 
+
+
     return {
       allAnswers,
       correctAnswer
@@ -30,19 +35,33 @@ export const useQuestionsScreen = (questions: IQuestion[]) => {
   const { allAnswers, correctAnswer } = joinAllAnswers()
 
 
+
   const questionsFormated = decodeURIComponent(
     questions[nextQuestion].question
   );
 
+
+  const allCorrectAnswers: Array<string> = []
+  questions.map((question) => {
+
+    const answer = decodeURIComponent(question.correct_answer)
+    allCorrectAnswers.push(answer)
+
+  })
+
+  console.log(allCorrectAnswers)
+
+
+
   async function goToTheNextQuestion(clickedAnswer: string) {
 
     nextQuestion >= questions.length - 1
-      ? navigation.navigate("result", { questions })
+      ? navigation.navigate("result", { allCorrectAnswers })
       : setNextQuestion(nextQuestion + 1);
 
     fillProgressBar();
     countNumberOfCorrectAnswers(clickedAnswer)
-    getChosenAnswers(clickedAnswer)
+    joinChosenAnswers(clickedAnswer)
   }
 
   function fillProgressBar() {
@@ -52,42 +71,25 @@ export const useQuestionsScreen = (questions: IQuestion[]) => {
   }
 
 
+
+
   function countNumberOfCorrectAnswers(answer: string) {
 
-    let allCorrectAnswer: any = []
-    questions.filter((question) => {
-      let answer = decodeURIComponent(question.correct_answer)
-      allCorrectAnswer.push(answer)
-      console.log(answer)
-    })
-
-    if (allCorrectAnswer.includes(answer)) {
+    if (allCorrectAnswers.includes(answer)) {
       setNumberOfCorrectAnswers(numberOfCorrectAnswers + 1)
     }
+
   }
 
-  async function storeNumberOfCorrectAnswers() {
-    try {
-      await AsyncStorage.setItem('resultCount', JSON.stringify(numberOfCorrectAnswers));
-    } catch (e) {
-      Alert.alert("Erro", "Ocorreu um erro ao carregar as informações");
-    }
-  }
+  storeNumberOfCorrectAnswers(numberOfCorrectAnswers)
 
-  storeNumberOfCorrectAnswers()
 
-  function getChosenAnswers(selectedAnswer: string) {
+
+  function joinChosenAnswers(selectedAnswer: string) {
     setChosenAnswers((prevState) => [...prevState, selectedAnswer]);
   }
 
-  async function storeChosenAnswers() {
-    try {
-      await AsyncStorage.setItem('chosenAnswers', JSON.stringify(numberOfCorrectAnswers));
-    } catch (e) {
-      Alert.alert("Erro", "Ocorreu um erro ao carregar as informações");
-    }
-  }
-
+  storeChosenAnswers(chosenAnswers)
 
 
 

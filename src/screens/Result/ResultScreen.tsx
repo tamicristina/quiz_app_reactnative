@@ -1,16 +1,31 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRoute } from "@react-navigation/native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { View, StyleSheet, Alert } from "react-native";
+import { UseQuestionsAsyncStorage } from "../../services/UseQuestionsAsyncStorage";
 import { useResultScreen } from "./hook";
 
 export function ResultScreen({ navigation }: { navigation: any }) {
   const route = useRoute<any>();
-  const { getNumberOfCorrectAnswers, result } = useResultScreen();
-  console.log("RESULTADO aqui" + " " + result);
+  const { allCorrectAnswers } = route.params;
+
+  const { getChosenAnswers, allChosenAnswers, getNumberOfCorrectAnswer } =
+    UseQuestionsAsyncStorage();
 
   useEffect(() => {
-    getNumberOfCorrectAnswers();
+    getNumberOfCorrectAnswer();
+    getChosenAnswers();
   }, []);
+
+  let contador = 0;
+
+  for (let i = 0; i < allChosenAnswers.length; i++) {
+    if (allChosenAnswers[i] === allCorrectAnswers[i]) {
+      contador++;
+      console.log("RESULT" + " " + [i]);
+    }
+  }
+  console.log("Número acertos" + " " + contador);
 
   return <View style={styles.container}>{}</View>;
 }
