@@ -1,33 +1,39 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useCallback, useState } from 'react';
 import { Alert } from 'react-native';
-import { useResultScreen } from '../screens/Result/hook';
+
 
 
 export function UseQuestionsAsyncStorage() {
   const [result, setResult] = useState("")
   const [allChosenAnswers, setallChosenAnswers] = useState<string[]>([])
+  const [allCorrectAnswers, setallCorrectAnswers] = useState<string[]>([])
 
-  async function storeNumberOfCorrectAnswers(numberOfCorrectAnswers: any) {
+  async function storeCorrectAnswers(correctAnswers: any) {
     try {
-      await AsyncStorage.setItem('resultCount', JSON.stringify(numberOfCorrectAnswers));
+      await AsyncStorage.setItem('correctAnswers', JSON.stringify(correctAnswers));
 
     } catch (e) {
       Alert.alert("Erro", "Ocorreu um erro ao carregar as informações");
     }
   }
 
-  async function getNumberOfCorrectAnswer() {
+  const getCorrectAnswers = useCallback(async () => {
     try {
-      const value = await AsyncStorage.getItem("resultCount");
+      const value = await AsyncStorage.getItem("correctAnswers");
       if (value != null) {
-        JSON.parse(value);
-        setResult(value);
+        const valueFormatted = JSON.parse(value);
+
+
+        setallCorrectAnswers((prevState) => [...valueFormatted]);
       }
     } catch (e) {
       Alert.alert("Erro", "Ocorreu um erro ao carregar as informações");
     }
-  };
+  }, [])
+
+
+
 
   async function storeChosenAnswers(chosenAnswers: any) {
     try {
@@ -62,12 +68,13 @@ export function UseQuestionsAsyncStorage() {
 
 
   return {
-    storeNumberOfCorrectAnswers,
-    getNumberOfCorrectAnswer,
+    storeCorrectAnswers,
+    getCorrectAnswers,
     storeChosenAnswers,
     getChosenAnswers,
     result,
-    allChosenAnswers
+    allChosenAnswers,
+    allCorrectAnswers
   }
 }
 

@@ -1,23 +1,23 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useRoute } from "@react-navigation/native";
 import React, { useEffect } from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { UseQuestionsAsyncStorage } from "../../services/UseQuestionsAsyncStorage";
 import { Container, IconsContainer } from "./style";
 import { FontAwesome, Entypo } from "@expo/vector-icons";
 
-export function ResultScreen({ navigation }: { navigation: any }) {
-  const route = useRoute<any>();
-  const { allCorrectAnswers } = route.params;
-
-  const { getChosenAnswers, allChosenAnswers, getNumberOfCorrectAnswer } =
-    UseQuestionsAsyncStorage();
+export function ResultScreen() {
+  const {
+    getChosenAnswers,
+    allChosenAnswers,
+    getCorrectAnswers,
+    allCorrectAnswers,
+  } = UseQuestionsAsyncStorage();
 
   useEffect(() => {
-    getNumberOfCorrectAnswer();
+    getCorrectAnswers();
     getChosenAnswers();
   }, []);
 
+  // console.log(`Hook async storage ${correctAnswers}`);
   let renderIcons = allChosenAnswers.map((answers, index) => {
     let correctAnswers = allCorrectAnswers[index];
 

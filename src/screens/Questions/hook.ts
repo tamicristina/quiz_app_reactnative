@@ -13,7 +13,7 @@ export const useQuestionsScreen = (questions: IQuestion[]) => {
   const [chosenAnswers, setChosenAnswers] = useState<string[]>([])
   const [numberOfCorrectAnswers, setNumberOfCorrectAnswers] = useState(0)
 
-  const { storeNumberOfCorrectAnswers, storeChosenAnswers } = UseQuestionsAsyncStorage()
+  const { storeChosenAnswers, storeCorrectAnswers } = UseQuestionsAsyncStorage()
 
 
 
@@ -48,6 +48,7 @@ export const useQuestionsScreen = (questions: IQuestion[]) => {
     allCorrectAnswers.push(answer)
 
   })
+  storeCorrectAnswers(allCorrectAnswers)
 
   console.log(allCorrectAnswers)
 
@@ -81,7 +82,6 @@ export const useQuestionsScreen = (questions: IQuestion[]) => {
 
   }
 
-  storeNumberOfCorrectAnswers(numberOfCorrectAnswers)
 
 
 
