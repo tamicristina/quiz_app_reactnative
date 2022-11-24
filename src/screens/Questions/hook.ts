@@ -57,7 +57,7 @@ export const useQuestionsScreen = (questions: IQuestion[]) => {
   async function goToTheNextQuestion(clickedAnswer: string) {
 
     nextQuestion >= questions.length - 1
-      ? navigation.navigate("result", { allCorrectAnswers })
+      ? navigation.navigate("result", { numberOfCorrectAnswers })
       : setNextQuestion(nextQuestion + 1);
 
     fillProgressBar();
