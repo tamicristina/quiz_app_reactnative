@@ -11,7 +11,6 @@ export const useQuestionsScreen = (questions: IQuestion[]) => {
   const [nextQuestion, setNextQuestion] = useState(0);
   const [FillingprogressBar, setFillingProgressBar] = useState(0);
   const [chosenAnswers, setChosenAnswers] = useState<string[]>([])
-  const [numberOfCorrectAnswers, setNumberOfCorrectAnswers] = useState(0)
 
   const { storeChosenAnswers, storeCorrectAnswers } = UseQuestionsAsyncStorage()
 
@@ -50,18 +49,17 @@ export const useQuestionsScreen = (questions: IQuestion[]) => {
   })
   storeCorrectAnswers(allCorrectAnswers)
 
-  console.log(allCorrectAnswers)
 
 
 
   async function goToTheNextQuestion(clickedAnswer: string) {
 
     nextQuestion >= questions.length - 1
-      ? navigation.navigate("result", { numberOfCorrectAnswers })
+      ? navigation.navigate("result")
       : setNextQuestion(nextQuestion + 1);
 
     fillProgressBar();
-    countNumberOfCorrectAnswers(clickedAnswer)
+
     joinChosenAnswers(clickedAnswer)
   }
 
@@ -74,13 +72,7 @@ export const useQuestionsScreen = (questions: IQuestion[]) => {
 
 
 
-  function countNumberOfCorrectAnswers(answer: string) {
 
-    if (allCorrectAnswers.includes(answer)) {
-      setNumberOfCorrectAnswers(numberOfCorrectAnswers + 1)
-    }
-
-  }
 
 
 
