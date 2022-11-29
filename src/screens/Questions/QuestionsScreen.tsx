@@ -7,6 +7,7 @@ import {
   ProgressBarContainer,
   QuestionContainer,
   QuestionText,
+  ButtonAnswerContainer,
 } from "./style";
 import { useQuestionsScreen } from "./hook";
 
@@ -43,7 +44,7 @@ export function QuestionsScreen() {
       <Container>
         <QuestionContainer>
           <QuestionText>{questionsFormated}</QuestionText>
-          {ButtonAnswerComponent}
+          <ButtonAnswerContainer>{ButtonAnswerComponent}</ButtonAnswerContainer>
         </QuestionContainer>
       </Container>
     </>

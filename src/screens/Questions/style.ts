@@ -17,7 +17,9 @@ export const ProgressBarContainer = styled.View`
 export const QuestionText = styled.Text`
 font-size:20px;
 text-align: center;
-
+`
+export const ButtonAnswerContainer = styled.View`
+margin: 20px 0
 `
 
 export const QuestionContainer = styled.View`
