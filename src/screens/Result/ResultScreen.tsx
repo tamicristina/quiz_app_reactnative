@@ -6,9 +6,6 @@ import { useRoute } from "@react-navigation/native";
 import { ResultScreenTemplate } from "../../templates/ResultScreen/ResultScreen.template";
 
 export function ResultScreen({ navigation }: { navigation: any }) {
-  const route = useRoute<any>();
-  const { numberOfCorrectAnswers } = route.params;
-
   const {
     getChosenAnswers,
     allChosenAnswers,
@@ -49,6 +46,13 @@ export function ResultScreen({ navigation }: { navigation: any }) {
       }
     });
 
+  const textResult =
+    rightQuestionCounter >= 7
+      ? "Congratulations! You passed"
+      : " To pass the test, you need get at least 7 answers right";
+
+  const buttonLabel = rightQuestionCounter >= 7 ? "Continue" : "Try Again";
+
   function goToTryAgain() {
     navigation.navigate("intro");
   }
@@ -60,13 +64,9 @@ export function ResultScreen({ navigation }: { navigation: any }) {
       secondTileResult={"out of"}
       numberOfhits={rightQuestionCounter}
       numberOfAnswers={allCorrectAnswers.length}
-      textResult={
-        rightQuestionCounter >= 7
-          ? "Congratulations! You passed"
-          : " To pass the test, you need get at least 7 answers right"
-      }
+      textResult={textResult}
       onPress={goToTryAgain}
-      buttonLabel={rightQuestionCounter >= 7 ? "Continue" : "Try Again"}
+      buttonLabel={buttonLabel}
     />
   );
 }
