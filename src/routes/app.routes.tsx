@@ -8,6 +8,7 @@ function AppRoutes() {
       screenOptions={{
         headerTransparent: true,
         title: "",
+        headerBackVisible: false,
       }}
       initialRouteName="intro"
     >
