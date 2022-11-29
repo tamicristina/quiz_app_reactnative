@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import { UseQuestionsAsyncStorage } from "../../services/UseQuestionsAsyncStorage";
 import { IconsSpacing } from "./style";
 import { FontAwesome, Entypo } from "@expo/vector-icons";
-import { useRoute } from "@react-navigation/native";
 import { ResultScreenTemplate } from "../../templates/ResultScreen/ResultScreen.template";
 
 export function ResultScreen({ navigation }: { navigation: any }) {
@@ -11,6 +10,7 @@ export function ResultScreen({ navigation }: { navigation: any }) {
     allChosenAnswers,
     getCorrectAnswers,
     allCorrectAnswers,
+    clearAllStorage,
   } = UseQuestionsAsyncStorage();
 
   useEffect(() => {
@@ -55,13 +55,14 @@ export function ResultScreen({ navigation }: { navigation: any }) {
 
   function goToTryAgain() {
     navigation.navigate("intro");
+    clearAllStorage();
   }
 
   return (
     <ResultScreenTemplate
       icons={renderIcons()}
       titleResult={"You've reached"}
-      secondTileResult={"out of"}
+      secondTileResult={"out of "}
       numberOfhits={rightQuestionCounter}
       numberOfAnswers={allCorrectAnswers.length}
       textResult={textResult}

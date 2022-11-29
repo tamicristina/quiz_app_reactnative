@@ -60,6 +60,13 @@ export function UseQuestionsAsyncStorage() {
     }
   }, [])
 
+  const clearAllStorage = async () => {
+    try {
+      await AsyncStorage.clear()
+    } catch (e) {
+      Alert.alert("Erro", "Ocorreu um erro !");
+    }
+  }
 
 
 
@@ -74,7 +81,8 @@ export function UseQuestionsAsyncStorage() {
     getChosenAnswers,
     result,
     allChosenAnswers,
-    allCorrectAnswers
+    allCorrectAnswers,
+    clearAllStorage
   }
 }
 
