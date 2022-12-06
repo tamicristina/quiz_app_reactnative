@@ -3,7 +3,7 @@
 Cenário 1 | Cenário 2
 
 <div>
-<img width="280px" src="https://user-images.githubusercontent.com/79336444/206042427-999edccb-a99e-4b64-be4c-5b81b191917b.gif" /> | <img width="280px" src="https://user-images.githubusercontent.com/79336444/206046504-2c73d553-bbad-475c-8e48-a837ca571ef9.gif"
+<img width="280px" src="https://user-images.githubusercontent.com/79336444/206042427-999edccb-a99e-4b64-be4c-5b81b191917b.gif" /> | <img width="280px" src="https://user-images.githubusercontent.com/79336444/206049495-668130d8-2139-4d9c-a3c7-d14d1f3b7a22.gif"
 />
 </div>
 
