@@ -9,7 +9,7 @@ Cenário 1 | Cenário 2
 
 ## Sobre
 
-Esse projeto foi criado utilizando o expo
+Esse projeto foi criado utilizando React Native junto com o expo, e consumindo os dados da API https://opentdb.com/api_config.php
 
 ---
 
