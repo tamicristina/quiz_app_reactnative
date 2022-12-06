@@ -47,6 +47,7 @@ export const useQuestionsScreen = (questions: IQuestion[]) => {
     allCorrectAnswers.push(answer)
 
   })
+
   storeCorrectAnswers(allCorrectAnswers)
 
 
